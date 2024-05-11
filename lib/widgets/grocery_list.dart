@@ -141,7 +141,13 @@ class _GroceryListState extends State<GroceryList> {
               itemCount: snapshot.data!.length,
               itemBuilder: (ctx, index) => Dismissible(
                 onDismissed: (direction) {
-                  _removeItem(snapshot.data![index]);
+                  final item = snapshot.data![index];
+                  setState(() {
+                    snapshot.data!.removeAt(index);
+                  });
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    _removeItem(item);
+                  });
                 },
                 key: ValueKey(snapshot.data![index].id),
                 child: ListTile(
