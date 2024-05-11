@@ -8,7 +8,9 @@ import 'package:shopping_list/models/category.dart';
 import 'package:shopping_list/models/grocery_item.dart';
 
 class NewItem extends StatefulWidget {
-  const NewItem({super.key});
+  final Function refreshItems;
+
+  const NewItem({required this.refreshItems, super.key});
 
   @override
   State<NewItem> createState() {
@@ -60,6 +62,8 @@ class _NewItemState extends State<NewItem> {
           category: _selectedCategory,
         ),
       );
+
+      widget.refreshItems();
     }
   }
 
